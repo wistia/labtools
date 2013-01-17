@@ -384,6 +384,9 @@ var __hasProp = {}.hasOwnProperty,
     return IframeEmbedCode;
 
   })(W.EmbedCode);
+  W.IframeEmbedCode.parse = function(embedCode) {
+    return new W.IframeEmbedCode(embedCode);
+  };
   W.ApiEmbedCode = (function(_super) {
 
     __extends(ApiEmbedCode, _super);
@@ -534,9 +537,6 @@ var __hasProp = {}.hasOwnProperty,
     return ApiEmbedCode;
 
   })(W.EmbedCode);
-  W.IframeEmbedCode.parse = function(embedCode) {
-    return new W.IframeEmbedCode(embedCode);
-  };
   W.ApiEmbedCode.parse = function(embedCode) {
     return new W.ApiEmbedCode(embedCode);
   };

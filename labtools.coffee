@@ -379,6 +379,9 @@
       @_embedCode.replace(/&amp;/g, "&")
 
 
+  W.IframeEmbedCode.parse = (embedCode) ->
+    new W.IframeEmbedCode(embedCode)
+
   
   # ## ApiEmbedCode Class
   #
@@ -507,10 +510,6 @@
         width: @width()
       , @options(), options
       W.EmbedCode.fromOembed(@hashedId(), options, callback)
-
-
-  W.IframeEmbedCode.parse = (embedCode) ->
-    new W.IframeEmbedCode(embedCode)
 
 
   W.ApiEmbedCode.parse = (embedCode) ->
