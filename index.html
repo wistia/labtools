@@ -400,6 +400,9 @@ reports itself as valid.</p>
       <span class="nx">@_embedCode</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/&amp;amp;/g</span><span class="p">,</span> <span class="s">&quot;&amp;&quot;</span><span class="p">)</span>
 
 
+  <span class="nv">W.IframeEmbedCode.parse = </span><span class="nf">(embedCode) -&gt;</span>
+    <span class="k">new</span> <span class="nx">W</span><span class="p">.</span><span class="nx">IframeEmbedCode</span><span class="p">(</span><span class="nx">embedCode</span><span class="p">)</span>
+
   </pre></div></div>                      </li>                              <li id="section-26">             <div class="annotation">               <div class="pilwrap">                 <a class="pilcrow" href="#section-26">&#182;</a>               </div>                           
 
 <h2>ApiEmbedCode Class</h2>
@@ -530,10 +533,6 @@ the container. So this class also works with SEO embed types.</p>
         <span class="nv">width: </span><span class="nx">@width</span><span class="p">()</span>
       <span class="p">,</span> <span class="nx">@options</span><span class="p">(),</span> <span class="nx">options</span>
       <span class="nx">W</span><span class="p">.</span><span class="nx">EmbedCode</span><span class="p">.</span><span class="nx">fromOembed</span><span class="p">(</span><span class="nx">@hashedId</span><span class="p">(),</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span>
-
-
-  <span class="nv">W.IframeEmbedCode.parse = </span><span class="nf">(embedCode) -&gt;</span>
-    <span class="k">new</span> <span class="nx">W</span><span class="p">.</span><span class="nx">IframeEmbedCode</span><span class="p">(</span><span class="nx">embedCode</span><span class="p">)</span>
 
 
   <span class="nv">W.ApiEmbedCode.parse = </span><span class="nf">(embedCode) -&gt;</span>
