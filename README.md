@@ -19,18 +19,22 @@ LabTools requires jQuery and Wistia's E-v1 script.
 
 ### Parse an embed code
 
+Take an embed code and parse it so we can query or manipulate it.
+
     var embedCode = Wistia.EmbedCode.parse("[embed code string]");
 
 
 ### Check the type of embed code
 
-    // If you're checking against a string.
+If you're checking against a string:
+
     Wistia.EmbedCode.isIframe("[embed code string]");
     Wistia.EmbedCode.isPopover("[embed code string]");
     Wistia.EmbedCode.isApi("[embed code string]");
 
-    // If you want to see what type was returned
-    // by Wistia.EmbedCode.parse:
+If you want to see what type was returned by
+Wistia.EmbedCode.parse:
+
     embedCode instanceof Wistia.IframeEmbedCode
     embedCode instanceof Wistia.PopoverEmbedCode
     embedCode instanceof Wistia.ApiEmbedCode
@@ -53,6 +57,13 @@ LabTools requires jQuery and Wistia's E-v1 script.
 
 ### Preview the embed code in a div
 
-    // There should be a div with id="embed_code_preview"
-    // somewhere on the page.
+ There should be a div with id="embed_code_preview"
+ somewhere on the page.
+
     embedCode.previewInElem("embed_code_preview");
+
+
+### More advanced stuff
+
+For more advanced usage, please take a look at the
+[annotated source](http://wistia.github.com/labtools).
