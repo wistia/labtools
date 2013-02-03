@@ -75,8 +75,12 @@ var __hasProp = {}.hasOwnProperty,
       return this;
     };
 
-    EmbedCode.prototype.options = function() {
-      return W.extend({}, this._options);
+    EmbedCode.prototype.options = function(newOptions) {
+      if (newOptions != null) {
+        return W.extend(this._options, newOptions);
+      } else {
+        return W.extend({}, this._options);
+      }
     };
 
     EmbedCode.prototype._castOptions = function() {
@@ -88,30 +92,12 @@ var __hasProp = {}.hasOwnProperty,
       }
     };
 
-    EmbedCode.prototype._shallowOptions = function(options) {
-      var result;
-      if (options == null) {
-        options = this._options;
-      }
-      result = {};
-      W.obj.eachDeep(options, function(val, keys) {
-        if (keys[0] === 'plugin') {
-          if (keys.length === 2) {
-            return W.obj.set(result, keys, W.JSON.stringify(val));
-          }
-        } else if (!W.obj.isObject(val) && !W.obj.isArray(val)) {
-          return W.obj.set(result, keys, val);
-        }
-      });
-      return result;
-    };
-
     EmbedCode.prototype.fromOembed = function(options, callback) {
       options = W.extend({
         height: this.height(),
         ssl: this.ssl(),
         width: this.width()
-      }, this._shallowOptions(), options);
+      }, this.options(), options);
       return W.EmbedCode.fromOembed(this.hashedId(), options, callback);
     };
 
@@ -132,6 +118,16 @@ var __hasProp = {}.hasOwnProperty,
         return "http:";
       }
     };
+
+    EmbedCode.prototype.isValid = function() {
+      return false;
+    };
+
+    EmbedCode.prototype.hashedId = function(h) {};
+
+    EmbedCode.prototype.width = function(w) {};
+
+    EmbedCode.prototype.height = function(h) {};
 
     return EmbedCode;
 
@@ -226,7 +222,7 @@ var __hasProp = {}.hasOwnProperty,
       var newSrc;
       if (newOptions) {
         newSrc = this._hrefUrl.clone();
-        newSrc.params = this._shallowOptions(newOptions);
+        newSrc.params = newOptions;
         this._$popover.attr('href', newSrc.absolute());
         this.parse(this._$popoverFrag.html() + this._scripts.join("\n"));
         return this;
@@ -328,7 +324,7 @@ var __hasProp = {}.hasOwnProperty,
       var newSrc;
       if (newOptions) {
         newSrc = this._srcUrl.clone();
-        newSrc.params = this._shallowOptions(newOptions);
+        newSrc.params = newOptions;
         this._$iframe.attr('src', newSrc.absolute());
         this.parse(this._$iframeFrag.html());
         return this;
@@ -345,7 +341,7 @@ var __hasProp = {}.hasOwnProperty,
     IframeEmbedCode.prototype.hashedId = function(h) {
       if (h != null) {
         this._srcUrl.path[this._srcUrl.path.length - 1] = h;
-        this._$popover.attr("src", this._hrefUrl.absolute());
+        this._$iframe.attr("src", this._srcUrl.absolute());
         this.parse(this._$iframeFrag.html());
         return this;
       } else {
@@ -365,7 +361,7 @@ var __hasProp = {}.hasOwnProperty,
 
     IframeEmbedCode.prototype.height = function(h) {
       if (h != null) {
-        this._$popover.attr('height', h);
+        this._$iframe.attr('height', h);
         this.parse(this._$iframeFrag.html());
         return this;
       } else {

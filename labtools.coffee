@@ -101,8 +101,12 @@
       this
 
 
-    options: ->
-      W.extend {}, @_options
+    # Set or get options.
+    options: (newOptions) ->
+      if newOptions?
+        W.extend @_options, newOptions
+      else
+        W.extend {}, @_options
 
 
     # For Popover and Iframe embed types, all parameters will be parsed
@@ -118,20 +122,6 @@
       @_options.playerColor = playerColor if playerColor
 
 
-    # Iframe and Popover embeds can read a string representing JSON 
-    # directly. This method converts all plugin options to a JSON string,
-    # for more compact and legible embed codes.
-    _shallowOptions: (options = @_options) ->
-      result = {}
-      W.obj.eachDeep options, (val, keys) ->
-        if keys[0] is 'plugin'
-          if keys.length is 2
-            W.obj.set(result, keys, W.JSON.stringify(val))
-        else if (!W.obj.isObject(val) and !W.obj.isArray(val))
-          W.obj.set(result, keys, val)
-      result
-
-
     # ### Oembeds
 
     # Hit the oembed endpoint with this embed code's options. The 
@@ -143,7 +133,7 @@
         height: @height()
         ssl: @ssl()
         width: @width()
-      , @_shallowOptions(), options
+      , @options(), options
       W.EmbedCode.fromOembed(@hashedId(), options, callback)
 
 
@@ -160,6 +150,20 @@
 
     proto: ->
       if @ssl() then "https:" else "http:"
+
+
+    # We might have parsed the embed code, but is it valid?
+    isValid: ->
+      false
+
+
+    hashedId: (h) ->
+
+
+    width: (w) ->
+
+
+    height: (h) ->
 
 
   # ### Class-Level Embed Code Functions
@@ -250,7 +254,7 @@
     options: (newOptions) ->
       if newOptions
         newSrc = @_hrefUrl.clone()
-        newSrc.params = @_shallowOptions(newOptions)
+        newSrc.params = newOptions
         @_$popover.attr('href', newSrc.absolute())
         @parse @_$popoverFrag.html() + @_scripts.join("\n")
         this
@@ -331,7 +335,7 @@
     options: (newOptions) ->
       if newOptions
         newSrc = @_srcUrl.clone()
-        newSrc.params = @_shallowOptions(newOptions)
+        newSrc.params = newOptions
         @_$iframe.attr('src', newSrc.absolute())
         @parse @_$iframeFrag.html()
         this
@@ -346,7 +350,7 @@
     hashedId: (h) ->
       if h?
         @_srcUrl.path[@_srcUrl.path.length - 1] = h
-        @_$popover.attr("src", @_hrefUrl.absolute())
+        @_$iframe.attr("src", @_srcUrl.absolute())
         @parse(@_$iframeFrag.html())
         this
       else
@@ -364,7 +368,7 @@
 
     height: (h) ->
       if h?
-        @_$popover.attr('height', h)
+        @_$iframe.attr('height', h)
         @parse(@_$iframeFrag.html())
         this
       else
