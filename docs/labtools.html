@@ -111,11 +111,15 @@ child elements from one javascript Object to another.</p>
       <span class="nv">newOptions = </span><span class="nx">W</span><span class="p">.</span><span class="nx">extend</span><span class="p">({},</span> <span class="nx">@_options</span><span class="p">)</span>
       <span class="nx">W</span><span class="p">.</span><span class="nx">obj</span><span class="p">.</span><span class="nx">unset</span><span class="p">(</span><span class="nx">newOptions</span><span class="p">,</span> <span class="nx">key</span><span class="p">)</span>
       <span class="nx">@options</span><span class="p">(</span><span class="nx">newOptions</span><span class="p">)</span>
-      <span class="k">this</span>
+      <span class="k">this</span></pre></div></div>                      </li>                              <li id="section-12">             <div class="annotation">               <div class="pilwrap">                 <a class="pilcrow" href="#section-12">&#182;</a>               </div>                           
 
+<p>Set or get options.</p>
 
-    <span class="nv">options: </span><span class="nf">-&gt;</span>
-      <span class="nx">W</span><span class="p">.</span><span class="nx">extend</span> <span class="p">{},</span> <span class="nx">@_options</span></pre></div></div>                      </li>                              <li id="section-12">             <div class="annotation">               <div class="pilwrap">                 <a class="pilcrow" href="#section-12">&#182;</a>               </div>                           
+             </div>                          <div class="content"><div class="highlight"><pre>    <span class="nv">options: </span><span class="nf">(newOptions) -&gt;</span>
+      <span class="k">if</span> <span class="nx">newOptions</span><span class="o">?</span>
+        <span class="nx">W</span><span class="p">.</span><span class="nx">extend</span> <span class="nx">@_options</span><span class="p">,</span> <span class="nx">newOptions</span>
+      <span class="k">else</span>
+        <span class="nx">W</span><span class="p">.</span><span class="nx">extend</span> <span class="p">{},</span> <span class="nx">@_options</span></pre></div></div>                      </li>                              <li id="section-13">             <div class="annotation">               <div class="pilwrap">                 <a class="pilcrow" href="#section-13">&#182;</a>               </div>                           
 
 <p>For Popover and Iframe embed types, all parameters will be parsed
 first as strings. This method uses regexp matching to convert option 
@@ -128,21 +132,7 @@ it should really be a string.</p>
              </div>                          <div class="content"><div class="highlight"><pre>    <span class="nv">_castOptions: </span><span class="nf">-&gt;</span>
       <span class="nv">playerColor = </span><span class="nx">@_options</span><span class="p">.</span><span class="nx">playerColor</span> <span class="o">or</span> <span class="s">&#39;&#39;</span>
       <span class="nx">W</span><span class="p">.</span><span class="nx">obj</span><span class="p">.</span><span class="nx">castDeep</span><span class="p">(</span><span class="nx">@_options</span><span class="p">)</span>
-      <span class="vi">@_options.playerColor = </span><span class="nx">playerColor</span> <span class="k">if</span> <span class="nx">playerColor</span></pre></div></div>                      </li>                              <li id="section-13">             <div class="annotation">               <div class="pilwrap">                 <a class="pilcrow" href="#section-13">&#182;</a>               </div>                           
-
-<p>Iframe and Popover embeds can read a string representing JSON 
-directly. This method converts all plugin options to a JSON string,
-for more compact and legible embed codes.</p>
-
-             </div>                          <div class="content"><div class="highlight"><pre>    <span class="nv">_shallowOptions: </span><span class="nf">(options = @_options) -&gt;</span>
-      <span class="nv">result = </span><span class="p">{}</span>
-      <span class="nx">W</span><span class="p">.</span><span class="nx">obj</span><span class="p">.</span><span class="nx">eachDeep</span> <span class="nx">options</span><span class="p">,</span> <span class="nf">(val, keys) -&gt;</span>
-        <span class="k">if</span> <span class="nx">keys</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">is</span> <span class="s">&#39;plugin&#39;</span>
-          <span class="k">if</span> <span class="nx">keys</span><span class="p">.</span><span class="nx">length</span> <span class="o">is</span> <span class="mi">2</span>
-            <span class="nx">W</span><span class="p">.</span><span class="nx">obj</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="nx">result</span><span class="p">,</span> <span class="nx">keys</span><span class="p">,</span> <span class="nx">W</span><span class="p">.</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">val</span><span class="p">))</span>
-        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">W</span><span class="p">.</span><span class="nx">obj</span><span class="p">.</span><span class="nx">isObject</span><span class="p">(</span><span class="nx">val</span><span class="p">)</span> <span class="o">and</span> <span class="o">!</span><span class="nx">W</span><span class="p">.</span><span class="nx">obj</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span><span class="nx">val</span><span class="p">))</span>
-          <span class="nx">W</span><span class="p">.</span><span class="nx">obj</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="nx">result</span><span class="p">,</span> <span class="nx">keys</span><span class="p">,</span> <span class="nx">val</span><span class="p">)</span>
-      <span class="nx">result</span></pre></div></div>                      </li>                              <li id="section-14">             <div class="annotation">               <div class="pilwrap">                 <a class="pilcrow" href="#section-14">&#182;</a>               </div>                           
+      <span class="vi">@_options.playerColor = </span><span class="nx">playerColor</span> <span class="k">if</span> <span class="nx">playerColor</span></pre></div></div>                      </li>                              <li id="section-14">             <div class="annotation">               <div class="pilwrap">                 <a class="pilcrow" href="#section-14">&#182;</a>               </div>                           
 
 <h3>Oembeds</h3>
 
@@ -158,7 +148,7 @@ embed types by changing the <code>embedType</code> option.</p>
         <span class="nv">height: </span><span class="nx">@height</span><span class="p">()</span>
         <span class="nv">ssl: </span><span class="nx">@ssl</span><span class="p">()</span>
         <span class="nv">width: </span><span class="nx">@width</span><span class="p">()</span>
-      <span class="p">,</span> <span class="nx">@_shallowOptions</span><span class="p">(),</span> <span class="nx">options</span>
+      <span class="p">,</span> <span class="nx">@options</span><span class="p">(),</span> <span class="nx">options</span>
       <span class="nx">W</span><span class="p">.</span><span class="nx">EmbedCode</span><span class="p">.</span><span class="nx">fromOembed</span><span class="p">(</span><span class="nx">@hashedId</span><span class="p">(),</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span></pre></div></div>                      </li>                              <li id="section-16">             <div class="annotation">               <div class="pilwrap">                 <a class="pilcrow" href="#section-16">&#182;</a>               </div>                           
 
 <p>The options we send to the oembed endpoint.</p>
@@ -176,13 +166,27 @@ embed types by changing the <code>embedType</code> option.</p>
     <span class="nv">proto: </span><span class="nf">-&gt;</span>
       <span class="k">if</span> <span class="nx">@ssl</span><span class="p">()</span> <span class="k">then</span> <span class="s">&quot;https:&quot;</span> <span class="k">else</span> <span class="s">&quot;http:&quot;</span></pre></div></div>                      </li>                              <li id="section-18">             <div class="annotation">               <div class="pilwrap">                 <a class="pilcrow" href="#section-18">&#182;</a>               </div>                           
 
+<p>We might have parsed the embed code, but is it valid?</p>
+
+             </div>                          <div class="content"><div class="highlight"><pre>    <span class="nv">isValid: </span><span class="nf">-&gt;</span>
+      <span class="kc">false</span>
+
+
+    <span class="nv">hashedId: </span><span class="nf">(h) -&gt;</span>
+
+
+    <span class="nv">width: </span><span class="nf">(w) -&gt;</span>
+
+
+    <span class="nv">height: </span><span class="nf">(h) -&gt;</span></pre></div></div>                      </li>                              <li id="section-19">             <div class="annotation">               <div class="pilwrap">                 <a class="pilcrow" href="#section-19">&#182;</a>               </div>                           
+
 <h3>Class-Level Embed Code Functions</h3>
 
-             </div>                      </li>                              <li id="section-19">             <div class="annotation">               <div class="pilwrap">                 <a class="pilcrow" href="#section-19">&#182;</a>               </div>                           
+             </div>                      </li>                              <li id="section-20">             <div class="annotation">               <div class="pilwrap">                 <a class="pilcrow" href="#section-20">&#182;</a>               </div>                           
 
 <h4>Oembeds</h4>
 
-             </div>                      </li>                              <li id="section-20">             <div class="annotation">               <div class="pilwrap">                 <a class="pilcrow" href="#section-20">&#182;</a>               </div>                           
+             </div>                      </li>                              <li id="section-21">             <div class="annotation">               <div class="pilwrap">                 <a class="pilcrow" href="#section-21">&#182;</a>               </div>                           
 
 <p>Get oembed data using just a hashed ID and options. The data 
 is returned in the typical oembed format,
@@ -195,11 +199,11 @@ is returned in the typical oembed format,
 
 
   <span class="nv">W.EmbedCode.oembedUrl = </span><span class="nf">(hashedId, options = {}) -&gt;</span>
-    <span class="s">&quot;</span><span class="si">#{</span><span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">ssl</span> <span class="k">then</span> <span class="s">&quot;https:&quot;</span> <span class="k">else</span> <span class="s">&quot;http:&quot;</span><span class="si">}</span><span class="s">//</span><span class="si">#{</span><span class="nx">W</span><span class="p">.</span><span class="nx">constant</span><span class="p">.</span><span class="nx">embedHost</span><span class="si">}</span><span class="s">/embed/medias/</span><span class="si">#{</span><span class="nx">hashedId</span><span class="si">}</span><span class="s">?</span><span class="si">#{</span><span class="nx">W</span><span class="p">.</span><span class="nx">url</span><span class="p">.</span><span class="nx">jsonToParams</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span><span class="si">}</span><span class="s">&quot;</span></pre></div></div>                      </li>                              <li id="section-21">             <div class="annotation">               <div class="pilwrap">                 <a class="pilcrow" href="#section-21">&#182;</a>               </div>                           
+    <span class="s">&quot;</span><span class="si">#{</span><span class="k">if</span> <span class="nx">options</span><span class="p">.</span><span class="nx">ssl</span> <span class="k">then</span> <span class="s">&quot;https:&quot;</span> <span class="k">else</span> <span class="s">&quot;http:&quot;</span><span class="si">}</span><span class="s">//</span><span class="si">#{</span><span class="nx">W</span><span class="p">.</span><span class="nx">constant</span><span class="p">.</span><span class="nx">embedHost</span><span class="si">}</span><span class="s">/embed/medias/</span><span class="si">#{</span><span class="nx">hashedId</span><span class="si">}</span><span class="s">?</span><span class="si">#{</span><span class="nx">W</span><span class="p">.</span><span class="nx">url</span><span class="p">.</span><span class="nx">jsonToParams</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span><span class="si">}</span><span class="s">&quot;</span></pre></div></div>                      </li>                              <li id="section-22">             <div class="annotation">               <div class="pilwrap">                 <a class="pilcrow" href="#section-22">&#182;</a>               </div>                           
 
 <h4>Parse an Embed Code</h4>
 
-             </div>                      </li>                              <li id="section-22">             <div class="annotation">               <div class="pilwrap">                 <a class="pilcrow" href="#section-22">&#182;</a>               </div>                           
+             </div>                      </li>                              <li id="section-23">             <div class="annotation">               <div class="pilwrap">                 <a class="pilcrow" href="#section-23">&#182;</a>               </div>                           
 
 <p>Given an embed code, return a parsed embed code object of 
 the correct type.</p>
@@ -233,13 +237,13 @@ the correct type.</p>
     <span class="k">try</span>
       <span class="k">new</span> <span class="nx">W</span><span class="p">.</span><span class="nx">PopoverEmbedCode</span><span class="p">(</span><span class="nx">embedCode</span><span class="p">).</span><span class="nx">isValid</span><span class="p">()</span>
     <span class="k">catch</span> <span class="nx">e</span>
-      <span class="kc">false</span></pre></div></div>                      </li>                              <li id="section-23">             <div class="annotation">               <div class="pilwrap">                 <a class="pilcrow" href="#section-23">&#182;</a>               </div>                           
+      <span class="kc">false</span></pre></div></div>                      </li>                              <li id="section-24">             <div class="annotation">               <div class="pilwrap">                 <a class="pilcrow" href="#section-24">&#182;</a>               </div>                           
 
 <p>An embed code is valid if it can be parsed, and if it 
 reports itself as valid.</p>
 
              </div>                          <div class="content"><div class="highlight"><pre>  <span class="nv">W.EmbedCode.isValid = </span><span class="nf">(embedCode) -&gt;</span>
-    <span class="o">!!</span><span class="nx">W</span><span class="p">.</span><span class="nx">EmbedCode</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">embedCode</span><span class="p">)</span><span class="o">?</span><span class="p">.</span><span class="nx">isValid</span><span class="p">()</span></pre></div></div>                      </li>                              <li id="section-24">             <div class="annotation">               <div class="pilwrap">                 <a class="pilcrow" href="#section-24">&#182;</a>               </div>                           
+    <span class="o">!!</span><span class="nx">W</span><span class="p">.</span><span class="nx">EmbedCode</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">embedCode</span><span class="p">)</span><span class="o">?</span><span class="p">.</span><span class="nx">isValid</span><span class="p">()</span></pre></div></div>                      </li>                              <li id="section-25">             <div class="annotation">               <div class="pilwrap">                 <a class="pilcrow" href="#section-25">&#182;</a>               </div>                           
 
 <h2>PopoverEmbedCode Class</h2>
 
@@ -271,7 +275,7 @@ reports itself as valid.</p>
     <span class="nv">options: </span><span class="nf">(newOptions) -&gt;</span>
       <span class="k">if</span> <span class="nx">newOptions</span>
         <span class="nv">newSrc = </span><span class="nx">@_hrefUrl</span><span class="p">.</span><span class="nx">clone</span><span class="p">()</span>
-        <span class="nv">newSrc.params = </span><span class="nx">@_shallowOptions</span><span class="p">(</span><span class="nx">newOptions</span><span class="p">)</span>
+        <span class="nv">newSrc.params = </span><span class="nx">newOptions</span>
         <span class="nx">@_$popover</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s">&#39;href&#39;</span><span class="p">,</span> <span class="nx">newSrc</span><span class="p">.</span><span class="nx">absolute</span><span class="p">())</span>
         <span class="nx">@parse</span> <span class="nx">@_$popoverFrag</span><span class="p">.</span><span class="nx">html</span><span class="p">()</span> <span class="o">+</span> <span class="nx">@_scripts</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s">&quot;\n&quot;</span><span class="p">)</span>
         <span class="k">this</span>
@@ -326,7 +330,7 @@ reports itself as valid.</p>
 
 
   <span class="nv">W.PopoverEmbedCode.parse = </span><span class="nf">(embedCode) -&gt;</span>
-    <span class="k">new</span> <span class="nx">W</span><span class="p">.</span><span class="nx">PopoverEmbedCode</span><span class="p">(</span><span class="nx">embedCode</span><span class="p">)</span></pre></div></div>                      </li>                              <li id="section-25">             <div class="annotation">               <div class="pilwrap">                 <a class="pilcrow" href="#section-25">&#182;</a>               </div>                           
+    <span class="k">new</span> <span class="nx">W</span><span class="p">.</span><span class="nx">PopoverEmbedCode</span><span class="p">(</span><span class="nx">embedCode</span><span class="p">)</span></pre></div></div>                      </li>                              <li id="section-26">             <div class="annotation">               <div class="pilwrap">                 <a class="pilcrow" href="#section-26">&#182;</a>               </div>                           
 
 <h2>IframeEmbedCode Class</h2>
 
@@ -352,7 +356,7 @@ reports itself as valid.</p>
     <span class="nv">options: </span><span class="nf">(newOptions) -&gt;</span>
       <span class="k">if</span> <span class="nx">newOptions</span>
         <span class="nv">newSrc = </span><span class="nx">@_srcUrl</span><span class="p">.</span><span class="nx">clone</span><span class="p">()</span>
-        <span class="nv">newSrc.params = </span><span class="nx">@_shallowOptions</span><span class="p">(</span><span class="nx">newOptions</span><span class="p">)</span>
+        <span class="nv">newSrc.params = </span><span class="nx">newOptions</span>
         <span class="nx">@_$iframe</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s">&#39;src&#39;</span><span class="p">,</span> <span class="nx">newSrc</span><span class="p">.</span><span class="nx">absolute</span><span class="p">())</span>
         <span class="nx">@parse</span> <span class="nx">@_$iframeFrag</span><span class="p">.</span><span class="nx">html</span><span class="p">()</span>
         <span class="k">this</span>
@@ -367,7 +371,7 @@ reports itself as valid.</p>
     <span class="nv">hashedId: </span><span class="nf">(h) -&gt;</span>
       <span class="k">if</span> <span class="nx">h</span><span class="o">?</span>
         <span class="nx">@_srcUrl</span><span class="p">.</span><span class="nx">path</span><span class="p">[</span><span class="nx">@_srcUrl</span><span class="p">.</span><span class="nx">path</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nx">h</span>
-        <span class="nx">@_$popover</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s">&quot;src&quot;</span><span class="p">,</span> <span class="nx">@_hrefUrl</span><span class="p">.</span><span class="nx">absolute</span><span class="p">())</span>
+        <span class="nx">@_$iframe</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s">&quot;src&quot;</span><span class="p">,</span> <span class="nx">@_srcUrl</span><span class="p">.</span><span class="nx">absolute</span><span class="p">())</span>
         <span class="nx">@parse</span><span class="p">(</span><span class="nx">@_$iframeFrag</span><span class="p">.</span><span class="nx">html</span><span class="p">())</span>
         <span class="k">this</span>
       <span class="k">else</span>
@@ -385,7 +389,7 @@ reports itself as valid.</p>
 
     <span class="nv">height: </span><span class="nf">(h) -&gt;</span>
       <span class="k">if</span> <span class="nx">h</span><span class="o">?</span>
-        <span class="nx">@_$popover</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s">&#39;height&#39;</span><span class="p">,</span> <span class="nx">h</span><span class="p">)</span>
+        <span class="nx">@_$iframe</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s">&#39;height&#39;</span><span class="p">,</span> <span class="nx">h</span><span class="p">)</span>
         <span class="nx">@parse</span><span class="p">(</span><span class="nx">@_$iframeFrag</span><span class="p">.</span><span class="nx">html</span><span class="p">())</span>
         <span class="k">this</span>
       <span class="k">else</span>
@@ -403,7 +407,7 @@ reports itself as valid.</p>
   <span class="nv">W.IframeEmbedCode.parse = </span><span class="nf">(embedCode) -&gt;</span>
     <span class="k">new</span> <span class="nx">W</span><span class="p">.</span><span class="nx">IframeEmbedCode</span><span class="p">(</span><span class="nx">embedCode</span><span class="p">)</span>
 
-  </pre></div></div>                      </li>                              <li id="section-26">             <div class="annotation">               <div class="pilwrap">                 <a class="pilcrow" href="#section-26">&#182;</a>               </div>                           
+  </pre></div></div>                      </li>                              <li id="section-27">             <div class="annotation">               <div class="pilwrap">                 <a class="pilcrow" href="#section-27">&#182;</a>               </div>                           
 
 <h2>ApiEmbedCode Class</h2>
 
@@ -566,7 +570,7 @@ the container. So this class also works with SEO embed types.</p>
     <span class="k">if</span> <span class="nv">matches = </span><span class="nx">embedCode</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="nx">W</span><span class="p">.</span><span class="nx">ApiEmbedCode</span><span class="p">.</span><span class="nx">roptions</span><span class="p">)</span>
       <span class="nx">matches</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
     <span class="k">else</span>
-      <span class="kc">null</span></pre></div></div>                      </li>                              <li id="section-27">             <div class="annotation">               <div class="pilwrap">                 <a class="pilcrow" href="#section-27">&#182;</a>               </div>                           
+      <span class="kc">null</span></pre></div></div>                      </li>                              <li id="section-28">             <div class="annotation">               <div class="pilwrap">                 <a class="pilcrow" href="#section-28">&#182;</a>               </div>                           
 
 <p>Since the options are javascript objects with unquoted keys,
 we can't parse it with JSON. The easiest way is just to eval it.</p>
@@ -580,7 +584,7 @@ Please be careful.</p>
     <span class="k">catch</span> <span class="nx">e</span>
       <span class="nx">console</span><span class="o">?</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">matches</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
       <span class="nx">console</span><span class="o">?</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">stack</span><span class="p">)</span>
-      <span class="kc">null</span></pre></div></div>                      </li>                              <li id="section-28">             <div class="annotation">               <div class="pilwrap">                 <a class="pilcrow" href="#section-28">&#182;</a>               </div>                           
+      <span class="kc">null</span></pre></div></div>                      </li>                              <li id="section-29">             <div class="annotation">               <div class="pilwrap">                 <a class="pilcrow" href="#section-29">&#182;</a>               </div>                           
 
 <p>Given a javascript object, convert it to JSON with unquoted keys 
 (unless the key has punctuation in it).</p>             </div>                          <div class="content"><div class="highlight"><pre>  <span class="nv">W.ApiEmbedCode.evilJsonStringify = </span><span class="nf">(h) -&gt;</span>
